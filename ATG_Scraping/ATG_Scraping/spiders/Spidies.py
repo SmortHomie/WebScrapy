@@ -45,17 +45,25 @@ class LinkedInJob_Spider(scrapy.Spider):
             start_urls.append('https://www.linkedin.com/jobs/search?keywords={}&location={},India&position=1&pageNum=1'.format(Sub,S))
 
     def parse(self,response):
+        #List to store Company details
         Comp=[]
+
+        #Field Names for Comp.csv
         fieldname=['ComName','Link']
+        
         for Jobs in response.css('ul.jobs-search__results-list li> div > div.base-search-card__info'):
+            
             Post=Jobs.css('h3::text').get().strip()
             cName=Jobs.css('h4 a::text').get().strip()
             cLink=Jobs.css('h4 a').attrib['href']
             Loc=Jobs.css('span.job-search-card__location::text').get().strip()
+            
+            #Adding Company Details in Comp List
             Comp.append({
                 'ComName': cName,
                 'Link' : cLink
             })
+
             yield {
                 'Designation':Post,
                 'Company':cName,
@@ -76,7 +84,10 @@ class LinkedIn_Comp_Spider(scrapy.Spider):
     name='LinkedInComp'
     start_urls=[]
 
+    #Loading Comp.csv
     cName=pd.read_csv('D:\WebScrapy\ATG_Scraping\Comp.csv')
+
+    #Storing Link Column as list to pass as urls
     start_urls=list(cName['Link'])
 
     user_agent= 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36'
