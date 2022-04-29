@@ -3,9 +3,9 @@ import csv
 import pandas as pd
 
 class CareerG_Spider(scrapy.Spider):
-    '''
-    Spider to scrape CareerGuide Data
-    '''
+ 
+ #   Spider to scrape CareerGuide Data
+ 
     name='CareerGuide'
     start_urls=['https://www.careerguide.com/career-options']
 
@@ -18,12 +18,12 @@ class CareerG_Spider(scrapy.Spider):
                     'Subcategory':i.get()
                 }
 
-    ''' Output will get stored in CareerG.csv'''
+#    Output will get stored in CareerG.csv'''
 
 class LinkedInJob_Spider(scrapy.Spider):
-    '''
-    Spider to scrape LinkedIn jobs info from CareerGuide Data
-    '''
+    # '''
+    # Spider to scrape LinkedIn jobs info from CareerGuide Data
+    # '''
     name='LinkedInJob'
     
     #Importing Scraped Data from CareerGuide
@@ -61,18 +61,18 @@ class LinkedInJob_Spider(scrapy.Spider):
                 'Company':cName,
                 'Location':Loc
             }
-            ''' Output will get stored in LinkedInJob.csv'''
+            # ''' Output will get stored in LinkedInJob.csv'''
 
-        with open('Comp.csv', 'a') as csvfile:
+        with open('Comp.csv', 'a+') as csvfile:
             #Saving Comapany Details such as Name and LinkedIn Company Profile Link to Scrape
             writer = csv.DictWriter(csvfile, fieldnames = fieldname)
             writer.writerows(Comp)
 
 class LinkedIn_Comp_Spider(scrapy.Spider):
 
-    '''
-    Spider to scrape Comap
-    '''
+    # '''
+    # Spider to scrape Comap
+    # '''
     name='LinkedInComp'
     start_urls=[]
 
