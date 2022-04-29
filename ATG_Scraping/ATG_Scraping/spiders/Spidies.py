@@ -6,17 +6,17 @@ class CareerG_Spider(scrapy.Spider):
     '''
     Spider to scrape CareerGuide Data
     '''
-  name='CareerGuide'
-  start_urls=['https://www.careerguide.com/career-options']
+    name='CareerGuide'
+    start_urls=['https://www.careerguide.com/career-options']
 
-  def parse(self,response):
-    for jobs in response.css('div.row >  div.col-md-4'):
-      title=jobs.css('h2 > a::text').get()
-      for i in jobs.css('ul li a::text'):
-        yield {
-            'Category':title,
-            'Subcategory':i.get()
-        }
+    def parse(self,response):
+        for jobs in response.css('div.row >  div.col-md-4'):
+            title=jobs.css('h2 > a::text').get()
+            for i in jobs.css('ul li a::text'):
+                yield {
+                    'Category':title,
+                    'Subcategory':i.get()
+                }
 
     ''' Output will get stored in CareerG.csv'''
 
@@ -82,4 +82,4 @@ class LinkedIn_Comp_Spider(scrapy.Spider):
     user_agent= 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36'
 
     def parse(self,response):
-    pass
+        pass
